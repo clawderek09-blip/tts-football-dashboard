@@ -1,0 +1,29 @@
+{
+  "name": "tts-football-dashboard",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "build:cloudflare": "opennextjs-cloudflare build",
+    "start": "next start",
+    "validate:data": "node scripts/validate-data.mjs"
+  },
+  "dependencies": {
+    "next": "15.5.22",
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  },
+  "overrides": {
+    "@node-minify/core": {
+      "glob": "13.0.6"
+    },
+    "postcss": "8.5.24",
+    "sharp": "0.35.3"
+  },
+  "devDependencies": {
+    "@opennextjs/cloudflare": "1.19.11",
+    "wrangler": "4.114.0"
+  }
+}
