@@ -149,9 +149,7 @@ function ProfitChart({ daily }) {
             stroke="#020202"
             strokeWidth="2"
           >
-            <title>
-              {humanDate(day.date)}: {signedPoints(day.runningPts)} running
-            </title>
+            <title>{`${humanDate(day.date)}: ${signedPoints(day.runningPts)} running`}</title>
           </circle>
           <text
             x={xFor(index)}
