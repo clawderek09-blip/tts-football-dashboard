@@ -39,3 +39,15 @@ Open <http://localhost:3000>.
 ```bash
 npm run build
 ```
+
+For the deployable Cloudflare package:
+
+```bash
+npm run build:cloudflare
+```
+
+The production package is intentionally static. Next exports the dashboard to
+`out/`, then `scripts/build-static-worker.mjs` packages those files behind a
+small Cloudflare asset Worker in `.open-next/`. This avoids loading the full
+Node-compatible Next server runtime for a dashboard that has no dynamic server
+features.

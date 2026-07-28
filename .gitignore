@@ -1,5 +1,7 @@
 .next/
 .open-next/
+.wrangler/
+out/
 node_modules/
 .DS_Store
 *.log
