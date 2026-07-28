@@ -18,11 +18,15 @@ The supplied Telegram HTML covers 22–28 July 2026:
 
 - 107 exported messages
 - 43 linked screenshots
-- 21 written/partially written slips imported
-- 40 selections across singles and accas
+- 42 betting screenshots imported (the remaining image is the channel-logo change)
+- 62 slips imported
+- 110 selections across singles, accas and bet builders
+- 28 confirmed wins, 7 confirmed losses and 27 awaiting a clear result
+- 32 priced settlements returning `+15.87pts / +£158.67`
 
-The Telegram photo directory was not part of the uploaded export, so
-screenshot-only tips are intentionally excluded until the images are supplied.
+The complete Telegram export now supplies the original photo directory. Every
+betting screenshot is matched to its source message; outcomes remain pending
+unless a clear result confirmation appears in the export.
 
 ## Run locally
 

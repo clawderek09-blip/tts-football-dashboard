@@ -35,13 +35,13 @@ for (const slip of slips) {
 
 const metrics = buildMetrics(slips);
 const expected = {
-  slips: 21,
-  selections: 40,
-  settled: 13,
-  priced: 9,
-  wins: 10,
-  losses: 3,
-  pending: 8,
+  slips: 62,
+  selections: 110,
+  settled: 35,
+  priced: 32,
+  wins: 28,
+  losses: 7,
+  pending: 27,
 };
 
 for (const [key, value] of Object.entries(expected)) {
@@ -50,12 +50,19 @@ for (const [key, value] of Object.entries(expected)) {
   }
 }
 
-if (Math.abs(metrics.plPts - 2.2) > 0.000001) {
-  errors.push(`Expected priced P/L of 2.20pts; received ${metrics.plPts}`);
+if (Math.abs(metrics.plPts - 15.866673326673325) > 0.000001) {
+  errors.push(`Expected priced P/L of 15.87pts; received ${metrics.plPts}`);
 }
 
 if (dashboardMeta.import.importedSlips !== slips.length) {
   errors.push("Import metadata slip count does not match data.");
+}
+
+if (
+  dashboardMeta.import.importedScreenshots !==
+  slips.filter((slip) => slip.sourceKind === "screenshot").length
+) {
+  errors.push("Import metadata screenshot count does not match data.");
 }
 
 if (errors.length) {

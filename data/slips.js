@@ -1,3 +1,5 @@
+import { screenshotSlips } from "./screenshot-slips.js";
+
 export const dashboardMeta = {
   brand: "The Tipping Station Football",
   period: "22–28 July 2026",
@@ -7,12 +9,13 @@ export const dashboardMeta = {
   import: {
     exportedMessages: 107,
     referencedScreenshots: 43,
-    importedSlips: 21,
-    note: "The Telegram HTML was supplied without its linked photo folder. Written bets are verified; screenshot-only bets remain outside the totals until those images are imported.",
+    importedScreenshots: 42,
+    importedSlips: 62,
+    note: "Screenshot import complete: 42 betting images were matched to the Telegram timeline; one of the 43 linked photos was the channel-logo change. Outcomes remain pending unless the export contains a clear result confirmation.",
   },
 };
 
-export const slips = [
+const writtenSlips = [
   {
     id: "slip-13082",
     sourceMessageId: 13082,
@@ -355,10 +358,12 @@ export const slips = [
     type: "single",
     timing: "in-play",
     title: "Ludogorets half-time result",
-    odds: null,
+    odds: 1.95,
     stakePts: 1,
     result: "won",
-    sourceKind: "partial-screenshot",
-    legs: [{ event: "Ludogorets", market: "Half-Time Result", selection: "Ludogorets HT result" }],
+    sourceKind: "screenshot",
+    legs: [{ event: "Dunav Ruse v Ludogorets Razgrad", market: "Half-Time Result", selection: "Ludogorets Razgrad HT result" }],
   },
 ];
+
+export const slips = [...writtenSlips, ...screenshotSlips];

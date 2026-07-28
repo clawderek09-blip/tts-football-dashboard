@@ -341,7 +341,7 @@ export default function FootballDashboard({ meta, slips }) {
           <span className="section-number">01</span>
           <h2>July performance</h2>
         </div>
-        <span>{meta.period} · verified text bets</span>
+        <span>{meta.period} · text + screenshot bets</span>
       </section>
 
       <section className="kpi-grid">
@@ -483,8 +483,8 @@ export default function FootballDashboard({ meta, slips }) {
           </div>
           <BreakdownRows items={slipFormats} total={metrics.slips} unit="slips" />
           <p className="panel-footnote">
-            Bet builders are supported by the model; none appeared as a verified
-            written bet in this export.
+            Three screenshot-based bet builders were imported with every visible
+            component leg preserved.
           </p>
         </article>
 
@@ -551,14 +551,14 @@ export default function FootballDashboard({ meta, slips }) {
 
       <aside className="import-note">
         <div>
-          <span className="import-icon">!</span>
+          <span className="import-icon">✓</span>
           <div>
-            <strong>Screenshot import gap</strong>
+            <strong>Screenshot import complete</strong>
             <p>{meta.import.note}</p>
           </div>
         </div>
         <span>
-          {meta.import.referencedScreenshots} linked images ·{" "}
+          {meta.import.importedScreenshots} betting screenshots ·{" "}
           {meta.import.exportedMessages} exported messages
         </span>
       </aside>
