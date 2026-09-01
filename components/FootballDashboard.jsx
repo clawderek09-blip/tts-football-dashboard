@@ -22,7 +22,8 @@ const decimalFormatter = new Intl.NumberFormat("en-GB", {
 });
 
 function signedPoints(value) {
-  const number = Number(value || 0);
+  if (value == null) return "—";
+  const number = Number(value);
   return `${number >= 0 ? "+" : "−"}${decimalFormatter.format(Math.abs(number))} pts`;
 }
 
@@ -31,8 +32,13 @@ function money(value) {
 }
 
 function signedMoney(value) {
-  const number = Number(value || 0);
+  if (value == null) return "—";
+  const number = Number(value);
   return `${number >= 0 ? "+" : "−"}${money(Math.abs(number))}`;
+}
+
+function percent(value) {
+  return value == null ? "—" : percentFormatter.format(value);
 }
 
 function humanDate(value) {
@@ -179,6 +185,14 @@ function KpiCard({ label, value, note, tone = "cyan" }) {
 }
 
 function BreakdownRows({ items, total, unit = "selections" }) {
+  if (!total) {
+    return (
+      <div className="empty-state">
+        <strong>No verified data yet.</strong>
+      </div>
+    );
+  }
+
   return (
     <div className="breakdown-list">
       {items.map((item) => (
@@ -260,6 +274,7 @@ function SlipCard({ slip, pointValue }) {
 export default function FootballDashboard({ meta, slips }) {
   const [filter, setFilter] = useState("all");
   const metrics = useMemo(() => buildMetrics(slips), [slips]);
+  const periodName = meta.period.split(/\s+/)[0];
   const filters = [
     { id: "all", label: "All slips" },
     { id: "single", label: "Singles" },
@@ -286,7 +301,7 @@ export default function FootballDashboard({ meta, slips }) {
     { name: "Bet Builders", count: slips.filter((slip) => slip.type === "builder").length },
   ];
   const bestDay = [...metrics.daily].sort((a, b) => b.plPts - a.plPts)[0];
-  const coverage = metrics.settled ? metrics.priced / metrics.settled : 0;
+  const coverage = metrics.settled ? metrics.calculable / metrics.settled : null;
   const wonDegrees = metrics.settled
     ? (metrics.wins / metrics.settled) * 360
     : 0;
@@ -314,24 +329,23 @@ export default function FootballDashboard({ meta, slips }) {
           </div>
 
           <div className="hero-title">
-            <p className="hero-kicker">Verified football performance</p>
+            <p className="hero-kicker">Football P&amp;L tracker</p>
             <h1>
-              July results
+              {periodName} results
               <br />
               dashboard
             </h1>
             <p>
-              Singles, in-play calls, accas and multi-leg football bets tracked
-              from the channel export.
+              Singles, in-play calls, accas and multi-leg football bets.
             </p>
           </div>
 
           <div className="hero-meta">
-            <span className="pill cyan">{metrics.slips} verified slips</span>
-            <span className="pill red">{metrics.selections} selections</span>
+            <span className="pill cyan">Tracking ready</span>
+            <span className="pill red">{meta.period}</span>
             <span className="pill gold">{money(meta.bankSize)} bank</span>
             <span className="pill">1pt = {money(meta.pointValue)}</span>
-            <span className="pill">Updated {meta.updatedAt}</span>
+            {meta.updatedAt ? <span className="pill">Updated {meta.updatedAt}</span> : null}
           </div>
         </div>
       </section>
@@ -339,34 +353,50 @@ export default function FootballDashboard({ meta, slips }) {
       <section className="section-heading">
         <div>
           <span className="section-number">01</span>
-          <h2>July performance</h2>
+          <h2>{periodName} performance</h2>
         </div>
-        <span>{meta.period} · text + screenshot bets</span>
+        <span>{meta.period} · awaiting verified bets</span>
       </section>
 
       <section className="kpi-grid">
         <KpiCard
           label="Priced P/L"
-          value={signedPoints(metrics.plPts)}
-          note={`${signedMoney(metrics.plPts * meta.pointValue)} · ${metrics.priced} priced settlements`}
-          tone={metrics.plPts >= 0 ? "green" : "red"}
+          value={metrics.calculable ? signedPoints(metrics.plPts) : "—"}
+          note={
+            metrics.calculable
+              ? `${signedMoney(metrics.plPts * meta.pointValue)} · ${metrics.calculable} priced settlements`
+              : "No calculable settlements yet"
+          }
+          tone={metrics.calculable && metrics.plPts < 0 ? "red" : "green"}
         />
         <KpiCard
           label="ROI"
-          value={percentFormatter.format(metrics.roi)}
-          note={`${decimalFormatter.format(metrics.stakePts)} pts calculable stake`}
+          value={percent(metrics.roi)}
+          note={
+            metrics.calculable
+              ? `${decimalFormatter.format(metrics.stakePts)} pts calculable stake`
+              : "Begins after the first settled stake"
+          }
           tone="cyan"
         />
         <KpiCard
           label="Slip Strike Rate"
-          value={percentFormatter.format(metrics.strikeRate)}
-          note={`${metrics.wins} wins from ${metrics.settled} settled slips`}
+          value={percent(metrics.strikeRate)}
+          note={
+            metrics.wins + metrics.losses
+              ? `${metrics.wins} wins from ${metrics.wins + metrics.losses} decisions`
+              : "Begins after the first win or loss"
+          }
           tone="gold"
         />
         <KpiCard
-          label="Tracking Coverage"
-          value={`${metrics.settled}/${metrics.slips}`}
-          note={`${metrics.pending} awaiting a verified result`}
+          label="Tracked Slips"
+          value={metrics.slips ? String(metrics.slips) : "—"}
+          note={
+            metrics.slips
+              ? `${metrics.settled} settled · ${metrics.pending} pending`
+              : "No verified bets recorded yet"
+          }
           tone="red"
         />
       </section>
@@ -385,15 +415,22 @@ export default function FootballDashboard({ meta, slips }) {
             <div>
               <p className="panel-eyebrow">Running performance</p>
               <h3>Cumulative P/L</h3>
-              <p>
-                Verified prices currently return {signedPoints(metrics.plPts)} from{" "}
-                {metrics.priced} settled slips.
-              </p>
+              {metrics.calculable ? (
+                <p>{`Verified prices currently return ${signedPoints(metrics.plPts)} from ${metrics.calculable} settled slips.`}</p>
+              ) : null}
             </div>
-            <span className="pill cyan">{signedPoints(metrics.plPts)}</span>
+            <span className="pill cyan">
+              {metrics.calculable ? signedPoints(metrics.plPts) : "—"}
+            </span>
           </div>
           <div className="chart-wrap">
-            <ProfitChart daily={metrics.daily} />
+            {metrics.daily.length ? (
+              <ProfitChart daily={metrics.daily} />
+            ) : (
+              <div className="empty-state">
+                <strong>No P/L curve yet.</strong>
+              </div>
+            )}
           </div>
         </article>
 
@@ -408,7 +445,6 @@ export default function FootballDashboard({ meta, slips }) {
             <div>
               <p className="panel-eyebrow">Settled slips</p>
               <h3>Result split</h3>
-              <p>Outcomes counted at slip level, not leg level.</p>
             </div>
           </div>
           <div className="result-ring">
@@ -438,28 +474,28 @@ export default function FootballDashboard({ meta, slips }) {
         <article className="proof-card">
           <span>Best priced day</span>
           <strong className="positive">
-            {bestDay ? signedPoints(bestDay.plPts) : "TBC"}
+            {bestDay ? signedPoints(bestDay.plPts) : "—"}
           </strong>
           <p>
             {bestDay
-              ? `${humanDate(bestDay.date)} · ${bestDay.priced} priced slips`
+              ? `${humanDate(bestDay.date)} · ${bestDay.slips} priced slips`
               : "No priced results yet."}
           </p>
         </article>
         <article className="proof-card">
           <span>Verified winners</span>
-          <strong>{metrics.wins}</strong>
+          <strong>{metrics.settled ? metrics.wins : "—"}</strong>
           <p>
-            Across singles and accas, with outcomes linked back to result replies
-            where available.
+            Wins will appear here after verified results are added and settled.
           </p>
         </article>
         <article className="proof-card">
           <span>P/L coverage</span>
-          <strong>{percentFormatter.format(coverage)}</strong>
+          <strong>{percent(coverage)}</strong>
           <p>
-            {metrics.priced} of {metrics.settled} settled slips include enough
-            price data for exact P/L.
+            {metrics.settled
+              ? `${metrics.calculable} of ${metrics.settled} settled slips include enough price data for exact P/L.`
+              : "Coverage will appear after the first settled slip."}
           </p>
         </article>
       </section>
@@ -482,10 +518,6 @@ export default function FootballDashboard({ meta, slips }) {
             </div>
           </div>
           <BreakdownRows items={slipFormats} total={metrics.slips} unit="slips" />
-          <p className="panel-footnote">
-            Three screenshot-based bet builders were imported with every visible
-            component leg preserved.
-          </p>
         </article>
 
         <article className="rank-panel">
@@ -542,26 +574,12 @@ export default function FootballDashboard({ meta, slips }) {
             ))
           ) : (
             <div className="empty-state">
-              <strong>No verified {filter} slips in this export.</strong>
-              <p>The format is ready when those bets are imported.</p>
+              <strong>No verified bets recorded for {periodName} yet.</strong>
+              <p>The selected view will populate automatically when accurate slips are added.</p>
             </div>
           )}
         </div>
       </section>
-
-      <aside className="import-note">
-        <div>
-          <span className="import-icon">✓</span>
-          <div>
-            <strong>Screenshot import complete</strong>
-            <p>{meta.import.note}</p>
-          </div>
-        </div>
-        <span>
-          {meta.import.importedScreenshots} betting screenshots ·{" "}
-          {meta.import.exportedMessages} exported messages
-        </span>
-      </aside>
 
       <footer>
         <img src="/tts-football-logo.jpg" alt="" />
@@ -569,7 +587,7 @@ export default function FootballDashboard({ meta, slips }) {
           <strong>{meta.brand}</strong>
           <p>Results tracking only. 18+ · Please gamble responsibly.</p>
         </div>
-        <span>Data verified from supplied Telegram export</span>
+        <span>Only verified bets will be published</span>
       </footer>
     </main>
   );

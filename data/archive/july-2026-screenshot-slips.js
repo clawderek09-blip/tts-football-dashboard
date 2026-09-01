@@ -1,3 +1,4 @@
+// Archived screenshot-derived slips from July 2026.
 export const screenshotSlips = [
   {
     id: "slip-13070",
