@@ -51,7 +51,12 @@ npm run build:cloudflare
 ```
 
 The production package is intentionally static. Next exports the dashboard to
-`out/`, then `scripts/build-static-worker.mjs` packages those files behind a
-small Cloudflare asset Worker in `.open-next/`. This avoids loading the full
-Node-compatible Next server runtime for a dashboard that has no dynamic server
-features.
+`out/`, and Cloudflare Workers Static Assets deploys that directory directly.
+No OpenNext server adapter is required because the dashboard has no dynamic
+server features.
+
+Deploy it with:
+
+```bash
+npm run deploy:cloudflare
+```
