@@ -39,12 +39,17 @@
 }
 
 html {
-  min-width: 320px;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
   background: var(--bg);
   scroll-behavior: smooth;
 }
 
 body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
   min-height: 100vh;
   margin: 0;
   background:
@@ -87,6 +92,8 @@ summary:focus-visible {
 
 .dashboard-shell {
   width: min(1180px, 100%);
+  min-width: 0;
+  max-width: 100%;
   margin: 0 auto;
   padding: 18px 16px 34px;
 }
@@ -150,6 +157,7 @@ summary:focus-visible {
 .hero-inner {
   position: relative;
   z-index: 1;
+  min-width: 0;
   min-height: 590px;
   display: grid;
   align-content: center;
@@ -197,6 +205,8 @@ summary:focus-visible {
 }
 
 .hero-title {
+  min-width: 0;
+  width: 100%;
   max-width: 790px;
 }
 
@@ -209,6 +219,8 @@ summary:focus-visible {
 }
 
 .hero-title h1 {
+  min-width: 0;
+  width: 100%;
   max-width: 760px;
   margin: 0;
   font-size: clamp(48px, 8.4vw, 108px);
@@ -219,11 +231,14 @@ summary:focus-visible {
 }
 
 .hero-title p {
+  min-width: 0;
+  width: 100%;
   max-width: 620px;
   margin: 22px 0 0;
   color: var(--muted);
   font-size: clamp(14px, 2vw, 19px);
   line-height: 1.48;
+  overflow-wrap: anywhere;
 }
 
 .hero-meta {
@@ -1129,7 +1144,7 @@ footer > span {
     min-height: 620px;
     align-content: end;
     gap: 24px;
-    padding: 24px 20px 28px;
+    padding: 24px clamp(14px, 5vw, 20px) 28px;
   }
 
   .brand-mark {
@@ -1138,8 +1153,9 @@ footer > span {
   }
 
   .hero-title h1 {
-    font-size: clamp(45px, 15vw, 70px);
+    font-size: clamp(30px, 11.5vw, 58px);
     line-height: 0.84;
+    letter-spacing: -0.045em;
   }
 
   .hero-title p {
@@ -1314,7 +1330,7 @@ footer > span {
 
 @media (max-width: 390px) {
   .hero-title h1 {
-    font-size: 42px;
+    font-size: clamp(30px, 11vw, 40px);
   }
 
   .hero-meta .pill:nth-child(4) {
