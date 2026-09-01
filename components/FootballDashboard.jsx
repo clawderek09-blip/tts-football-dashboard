@@ -341,7 +341,6 @@ export default function FootballDashboard({ meta, slips }) {
           </div>
 
           <div className="hero-meta">
-            <span className="pill cyan">Tracking ready</span>
             <span className="pill red">{meta.period}</span>
             <span className="pill gold">{money(meta.bankSize)} bank</span>
             <span className="pill">1pt = {money(meta.pointValue)}</span>
