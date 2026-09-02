@@ -299,9 +299,37 @@ export default function FootballDashboard({ meta, slips }) {
     { name: "Bet Builders", count: slips.filter((slip) => slip.type === "builder").length },
   ];
   const bestDay = [...metrics.daily].sort((a, b) => b.plPts - a.plPts)[0];
-  const bestWinningSlip = [...slips]
-    .filter((slip) => slip.result === "won" && slipPnl(slip) !== null)
-    .sort((a, b) => slipPnl(b) - slipPnl(a))[0];
+  const bestBetType = useMemo(() => {
+    const labels = {
+      single: "Singles",
+      acca: "Accas",
+      builder: "Builders",
+      "in-play": "In-play",
+    };
+    const byType = new Map();
+
+    slips.forEach((slip) => {
+      const pnl = slipPnl(slip);
+      if (pnl === null) return;
+
+      const type = slip.timing === "in-play" ? "in-play" : slip.type;
+      if (!byType.has(type)) {
+        byType.set(type, {
+          name: labels[type] || titleCase(type),
+          slips: 0,
+          wins: 0,
+          plPts: 0,
+        });
+      }
+
+      const row = byType.get(type);
+      row.slips += 1;
+      row.wins += slip.result === "won" ? 1 : 0;
+      row.plPts += pnl;
+    });
+
+    return [...byType.values()].sort((a, b) => b.plPts - a.plPts)[0];
+  }, [slips]);
   const wonDegrees = metrics.settled
     ? (metrics.wins / metrics.settled) * 360
     : 0;
@@ -482,20 +510,24 @@ export default function FootballDashboard({ meta, slips }) {
           </p>
         </article>
         <article className="proof-card">
-          <span>Best winning bet</span>
-          <strong className={bestWinningSlip ? "positive" : undefined}>
-            {bestWinningSlip ? signedPoints(slipPnl(bestWinningSlip)) : "—"}
+          <span>Best bet type</span>
+          <strong className={bestBetType ? "positive" : undefined}>
+            {bestBetType ? bestBetType.name : "—"}
           </strong>
           <p>
-            {bestWinningSlip
-              ? `${titleCase(bestWinningSlip.timing === "in-play" ? "in-play" : bestWinningSlip.type)} · ${bestWinningSlip.title}`
-              : "No winning bets yet."}
+            {bestBetType
+              ? `${signedPoints(bestBetType.plPts)} · ${bestBetType.wins} wins`
+              : "No settled bet types yet."}
           </p>
           <p>
             {metrics.slips
               ? `${metrics.wins} wins from ${metrics.slips} bets`
               : "Wins will update as bets settle."}
           </p>
+        </article>
+        <article className="proof-card">
+          <span>Verified winners</span>
+          <strong>{metrics.settled ? metrics.wins : "—"}</strong>
         </article>
       </section>
 
