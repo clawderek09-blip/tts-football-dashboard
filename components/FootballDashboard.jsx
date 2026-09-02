@@ -259,13 +259,11 @@ function SlipCard({ slip, pointValue }) {
             </div>
           ))}
         </div>
-        <div className="source-note">
-          <span>Telegram message #{slip.sourceMessageId}</span>
-          <span>Tipster: {slip.tipster}</span>
-          {slip.odds == null ? (
+        {slip.odds == null ? (
+          <div className="source-note">
             <span className="source-warning">P/L excluded until the original price is verified.</span>
-          ) : null}
-        </div>
+          </div>
+        ) : null}
       </div>
     </details>
   );
@@ -301,7 +299,6 @@ export default function FootballDashboard({ meta, slips }) {
     { name: "Bet Builders", count: slips.filter((slip) => slip.type === "builder").length },
   ];
   const bestDay = [...metrics.daily].sort((a, b) => b.plPts - a.plPts)[0];
-  const coverage = metrics.settled ? metrics.calculable / metrics.settled : null;
   const wonDegrees = metrics.settled
     ? (metrics.wins / metrics.settled) * 360
     : 0;
@@ -484,18 +481,6 @@ export default function FootballDashboard({ meta, slips }) {
         <article className="proof-card">
           <span>Verified winners</span>
           <strong>{metrics.settled ? metrics.wins : "—"}</strong>
-          <p>
-            Wins will appear here after verified results are added and settled.
-          </p>
-        </article>
-        <article className="proof-card">
-          <span>P/L coverage</span>
-          <strong>{percent(coverage)}</strong>
-          <p>
-            {metrics.settled
-              ? `${metrics.calculable} of ${metrics.settled} settled slips include enough price data for exact P/L.`
-              : "Coverage will appear after the first settled slip."}
-          </p>
         </article>
       </section>
 
