@@ -299,6 +299,9 @@ export default function FootballDashboard({ meta, slips }) {
     { name: "Bet Builders", count: slips.filter((slip) => slip.type === "builder").length },
   ];
   const bestDay = [...metrics.daily].sort((a, b) => b.plPts - a.plPts)[0];
+  const bestWinningSlip = [...slips]
+    .filter((slip) => slip.result === "won" && slipPnl(slip) !== null)
+    .sort((a, b) => slipPnl(b) - slipPnl(a))[0];
   const wonDegrees = metrics.settled
     ? (metrics.wins / metrics.settled) * 360
     : 0;
@@ -479,8 +482,20 @@ export default function FootballDashboard({ meta, slips }) {
           </p>
         </article>
         <article className="proof-card">
-          <span>Verified winners</span>
-          <strong>{metrics.settled ? metrics.wins : "—"}</strong>
+          <span>Best winning bet</span>
+          <strong className={bestWinningSlip ? "positive" : undefined}>
+            {bestWinningSlip ? signedPoints(slipPnl(bestWinningSlip)) : "—"}
+          </strong>
+          <p>
+            {bestWinningSlip
+              ? `${titleCase(bestWinningSlip.timing === "in-play" ? "in-play" : bestWinningSlip.type)} · ${bestWinningSlip.title}`
+              : "No winning bets yet."}
+          </p>
+          <p>
+            {metrics.slips
+              ? `${metrics.wins} wins from ${metrics.slips} bets`
+              : "Wins will update as bets settle."}
+          </p>
         </article>
       </section>
 
