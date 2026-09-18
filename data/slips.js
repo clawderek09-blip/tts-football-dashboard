@@ -7,7 +7,7 @@ export const dashboardMeta = {
   brand: "The Tipping Station Football",
   period: "September 2026",
   periodShort: "Sep 2026",
-  updatedAt: "2026-09-18T11:35:00Z",
+  updatedAt: "2026-09-18T12:05:00Z",
   bankSize: 1000,
   pointValue: 10,
   currency: "GBP",
@@ -736,10 +736,11 @@ export const slips = [
     tipster: "The Tipping Station",
     type: "single",
     timing: "pre-match",
-    result: "pending",
+    result: "won",
     odds: 8,
     stakePts: 1,
-    confidence: "Needs player-prop/stat verification; visible but excluded from P&L until settled.",
+    confidence: "Settled from player-stat/commentary pass 2026-09-18: Kostoulas, Diego Gomez, Calvert-Lewin and Anton Stach all had saved/on-target efforts confirmed in match reports/stat snippets.",
+    verifiedSource: "Sub-on/play-on stat pass 2026-09-18",
     source: "Telegram export photo_43",
     legs: [
       {
@@ -894,10 +895,11 @@ export const slips = [
     tipster: "The Tipping Station",
     type: "single",
     timing: "pre-match",
-    result: "pending",
+    result: "lost",
     odds: 6,
     stakePts: 1,
-    confidence: "Needs player-prop/stat verification; visible but excluded from P&L until settled.",
+    confidence: "Settled from result pass 2026-09-18: Swansea v Wrexham finished 0-0 and Villarreal lost 2-3 to Deportivo, so the acca failed.",
+    verifiedSource: "Sub-on/play-on stat pass 2026-09-18",
     source: "Telegram export photo_50",
     legs: [
       {
@@ -1920,10 +1922,11 @@ export const slips = [
     tipster: "The Tipping Station",
     type: "builder",
     timing: "pre-match",
-    result: "pending",
+    result: "lost",
     odds: 5.5,
     stakePts: 1,
-    confidence: "Needs player-prop/stat verification; visible but excluded from P&L until settled.",
+    confidence: "Settled from card reports 2026-09-18: Man Utd reports list Dorgu as booked; required Sabah booked-player pair could not both land.",
+    verifiedSource: "Sub-on/play-on stat pass 2026-09-18",
     source: "Telegram export photo_95",
     legs: [
       {
@@ -2119,10 +2122,11 @@ export const slips = [
     tipster: "The Tipping Station",
     type: "builder",
     timing: "pre-match",
-    result: "pending",
+    result: "lost",
     odds: 4,
     stakePts: 1,
-    confidence: "Needs player-prop/stat verification; visible but excluded from P&L until settled.",
+    confidence: "Settled from card commentary 2026-09-18: West Ham/Wrexham yellow-card reports show Scarles late, not the required Whiteman + Engels pair.",
+    verifiedSource: "Sub-on/play-on stat pass 2026-09-18",
     source: "Telegram export photo_101",
     legs: [
       {
