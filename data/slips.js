@@ -7,7 +7,7 @@ export const dashboardMeta = {
   brand: "The Tipping Station Football",
   period: "September 2026",
   periodShort: "Sep 2026",
-  updatedAt: "2026-09-18T11:00:00Z",
+  updatedAt: "2026-09-18T11:35:00Z",
   bankSize: 1000,
   pointValue: 10,
   currency: "GBP",
@@ -872,10 +872,11 @@ export const slips = [
     tipster: "The Tipping Station",
     type: "single",
     timing: "pre-match",
-    result: "pending",
+    result: "lost",
     odds: 2.625,
     stakePts: 1,
-    confidence: "Needs player-prop/stat verification; visible but excluded from P&L until settled.",
+    confidence: "Verified: Schalke v Bayern finished 0-0; Luis Diaz did not score.",
+    verifiedSource: "Opta-style/web stat pass 2026-09-18",
     source: "Telegram export photo_49",
     legs: [
       {
@@ -1045,10 +1046,11 @@ export const slips = [
     tipster: "The Tipping Station",
     type: "single",
     timing: "pre-match",
-    result: "pending",
+    result: "won",
     odds: 2,
     stakePts: 1,
-    confidence: "Needs player-prop/stat verification; visible but excluded from P&L until settled.",
+    confidence: "Verified: Nankatsu SC 1-2 Aries Toshima, so BTTS landed.",
+    verifiedSource: "Opta-style/web stat pass 2026-09-18",
     source: "Telegram export photo_58",
     legs: [
       {
@@ -1066,10 +1068,11 @@ export const slips = [
     tipster: "The Tipping Station",
     type: "builder",
     timing: "pre-match",
-    result: "pending",
+    result: "lost",
     odds: 6.5,
     stakePts: 0.5,
-    confidence: "Needs player-prop/stat verification; visible but excluded from P&L until settled.",
+    confidence: "Verified: Everton v Man Utd finished 2-2; Thierno Barry did not score/assist, so the score-or-assist builder failed.",
+    verifiedSource: "Opta-style/web stat pass 2026-09-18",
     source: "Telegram export photo_59",
     legs: [
       {
@@ -1485,10 +1488,11 @@ export const slips = [
     tipster: "The Tipping Station",
     type: "builder",
     timing: "pre-match",
-    result: "pending",
+    result: "lost",
     odds: 10.5,
     stakePts: 1,
-    confidence: "Needs player-prop/stat verification; visible but excluded from P&L until settled.",
+    confidence: "Verified: Porto registered 0 shots on target v Man City, so Porto player SOT legs failed.",
+    verifiedSource: "Opta-style/web stat pass 2026-09-18",
     source: "Telegram export photo_76",
     legs: [
       {
@@ -1537,10 +1541,11 @@ export const slips = [
     tipster: "The Tipping Station",
     type: "builder",
     timing: "pre-match",
-    result: "pending",
+    result: "lost",
     odds: 15.5,
     stakePts: 0.5,
-    confidence: "Needs player-prop/stat verification; visible but excluded from P&L until settled.",
+    confidence: "Verified: Porto registered 0 shots on target v Man City, so the Porto/City SOT builder leg failed.",
+    verifiedSource: "Opta-style/web stat pass 2026-09-18",
     source: "Telegram export photo_78",
     legs: [
       {
@@ -1715,10 +1720,11 @@ export const slips = [
     tipster: "The Tipping Station",
     type: "single",
     timing: "pre-match",
-    result: "pending",
+    result: "won",
     odds: 3.5,
     stakePts: 1.5,
-    confidence: "Needs player-prop/stat verification; visible but excluded from P&L until settled.",
+    confidence: "Verified: Fenerbahce 1-1 Roma, Como 4-1 RB Leipzig, Slavia Prague 2-3 Lens; all BTTS legs landed.",
+    verifiedSource: "Opta-style/web stat pass 2026-09-18",
     source: "Telegram export photo_86",
     legs: [
       {
@@ -2060,10 +2066,11 @@ export const slips = [
     tipster: "The Tipping Station",
     type: "builder",
     timing: "pre-match",
-    result: "pending",
+    result: "won",
     odds: 3.25,
     stakePts: 1,
-    confidence: "Needs player-prop/stat verification; visible but excluded from P&L until settled.",
+    confidence: "Verified: West Ham 6-0 Wrexham; Taty Castellanos scored and assisted, Joel Piroe scored.",
+    verifiedSource: "Opta-style/web stat pass 2026-09-18",
     source: "Telegram export photo_99",
     legs: [
       {
@@ -2190,10 +2197,11 @@ export const slips = [
     tipster: "The Tipping Station",
     type: "single",
     timing: "pre-match",
-    result: "pending",
+    result: "won",
     odds: 7.45,
     stakePts: 1.5,
-    confidence: "Needs player-prop/stat verification; visible but excluded from P&L until settled.",
+    confidence: "Verified: Leeds 4-1 Newcastle, Villarreal 1-2 Betis, Como 2-1 Parma, Midtjylland 4-2 Brondby, Rio Ave 3-3 Estrela; acca landed.",
+    verifiedSource: "Opta-style/web stat pass 2026-09-18",
     source: "Telegram export photo_104",
     legs: [
       {
@@ -2284,10 +2292,11 @@ export const slips = [
     tipster: "The Tipping Station",
     type: "single",
     timing: "pre-match",
-    result: "pending",
+    result: "lost",
     odds: 1.533333333,
     stakePts: 1,
-    confidence: "Needs player-prop/stat verification; visible but excluded from P&L until settled.",
+    confidence: "Verified: West Ham U21 beat Liverpool U21 1-0 via an 85th-minute goal, not 90+ stoppage time.",
+    verifiedSource: "Opta-style/web stat pass 2026-09-18",
     source: "Telegram export photo_108",
     legs: [
       {
@@ -2394,10 +2403,11 @@ export const slips = [
     tipster: "The Tipping Station",
     type: "builder",
     timing: "pre-match",
-    result: "pending",
+    result: "lost",
     odds: 3.6,
     stakePts: 1.5,
-    confidence: "Needs player-prop/stat verification; visible but excluded from P&L until settled.",
+    confidence: "Verified: Liverpool 3-1 Tottenham; Cody Gakpo scored/assisted but Rio Ngumoha did not score/assist.",
+    verifiedSource: "Opta-style/web stat pass 2026-09-18",
     source: "Telegram export photo_113",
     legs: [
       {
@@ -2420,10 +2430,11 @@ export const slips = [
     tipster: "The Tipping Station",
     type: "builder",
     timing: "pre-match",
-    result: "pending",
+    result: "lost",
     odds: 5.5,
     stakePts: 1,
-    confidence: "Needs player-prop/stat verification; visible but excluded from P&L until settled.",
+    confidence: "Verified: Liverpool 3-1 Tottenham; Omar Marmoush shot was blocked, so the 1+ SOT builder failed.",
+    verifiedSource: "Opta-style/web stat pass 2026-09-18",
     source: "Telegram export photo_114",
     legs: [
       {
@@ -2446,10 +2457,11 @@ export const slips = [
     tipster: "The Tipping Station",
     type: "builder",
     timing: "pre-match",
-    result: "pending",
+    result: "lost",
     odds: 6.5,
     stakePts: 1,
-    confidence: "Needs player-prop/stat verification; visible but excluded from P&L until settled.",
+    confidence: "Verified: West Ham 2-3 Fulham; Joshua Ajala shot was blocked and the SOT builder failed.",
+    verifiedSource: "Opta-style/web stat pass 2026-09-18",
     source: "Telegram export photo_115",
     legs: [
       {
@@ -2472,10 +2484,11 @@ export const slips = [
     tipster: "The Tipping Station",
     type: "builder",
     timing: "pre-match",
-    result: "pending",
+    result: "lost",
     odds: 2.6,
     stakePts: 1.5,
-    confidence: "Needs player-prop/stat verification; visible but excluded from P&L until settled.",
+    confidence: "Verified: Ipswich 2-4 Arsenal; Noni Madueke scored but Viktor Gyokeres had no score/assist, so builder failed.",
+    verifiedSource: "Opta-style/web stat pass 2026-09-18",
     source: "Telegram export photo_116",
     legs: [
       {
@@ -2498,10 +2511,11 @@ export const slips = [
     tipster: "The Tipping Station",
     type: "builder",
     timing: "pre-match",
-    result: "pending",
+    result: "lost",
     odds: 4,
     stakePts: 1,
-    confidence: "Needs player-prop/stat verification; visible but excluded from P&L until settled.",
+    confidence: "Verified: Ipswich 2-4 Arsenal; Zian Flemming had a volley blocked, so the SOT builder failed.",
+    verifiedSource: "Opta-style/web stat pass 2026-09-18",
     source: "Telegram export photo_117",
     legs: [
       {
